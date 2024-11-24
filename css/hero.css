@@ -1,0 +1,40 @@
+/* Hero Section */
+#hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #fff;
+    background-color: #001f54 !important; /* Dark blue background */
+    background-blend-mode: overlay;
+}
+
+#hero h1 {
+    font-size: xxx-large; /* Increase font size */
+    line-height: 1.5; /* Improve readability */
+}
+
+#hero h1 span {
+    color: #ff6347; /* Highlighted text in orange */
+}
+
+#hero p {
+    font-size: xxx-large; /* Bigger subtitle text */
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: #ff6347;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.1);
+}

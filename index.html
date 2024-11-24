@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include Head -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture This! - Unlock Creativity</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Dynamic Section Loading -->
+<div id="alert-bar"></div>
+<header id="header"></header>
+<section id="hero"></section>
+<section id="about"></section>
+<section id="features"></section>
+<section id="shop"></section>
+<section id="faq"></section>
+<section id="contact"></section>
+<footer id="footer"></footer>
+
+<!-- JavaScript -->
+<script src="js/main.js"></script>
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- Include HTML Sections Dynamically -->
+<script>
+    const sections = [
+        { id: 'alert-bar', file: 'html/alert-bar.html' },
+        { id: 'header', file: 'html/header.html' },
+        { id: 'hero', file: 'html/hero-section.html' },
+        { id: 'about', file: 'html/about-section.html' },
+        { id: 'features', file: 'html/features-section.html' },
+        { id: 'shop', file: 'html/shop-section.html' },
+        { id: 'faq', file: 'html/faq-section.html' },
+        { id: 'contact', file: 'html/contact-section.html' },
+        { id: 'footer', file: 'html/footer.html' },
+    ];
+
+    sections.forEach(section => {
+        fetch(section.file)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(section.id).innerHTML = data;
+            })
+            .catch(error => console.error('Error loading section:', section.file, error));
+    });
+</script>
+</body>
+</html>

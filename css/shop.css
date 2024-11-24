@@ -1,0 +1,27 @@
+
+/* Shop Section */
+.shop-section {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 2rem 0;
+}
+
+.shop-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #4b0082;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.product-box {
+    position: relative;
+    width: 250px;
+    height: 350px;
+}

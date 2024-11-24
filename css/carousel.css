@@ -1,0 +1,38 @@
+
+/* Swiper Styles */
+.swiper-container {
+    position: absolute;
+    top: 50%; /* Centered vertically with the box */
+    left: 50%; /* Center the container relative to the box */
+    transform: translate(-50%, -50%);
+    width: 600px; /* Combined width for left and right cards */
+    height: 350px; /* Match box height */
+    z-index: 1; /* Place behind the box */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none; /* Prevent interaction with the container */
+}
+
+.product-box:hover .swiper-container {
+    opacity: 1;
+}
+
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute cards evenly */
+}
+
+.swiper-slide {
+    width: 90%; /* 90% of the box size */
+    height: auto; /* Keep aspect ratio */
+    position: relative;
+    z-index: 1; /* Ensure slides appear behind the box */
+}
+
+.swiper-slide img {
+    width: 90%; /* Match the intended size */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
