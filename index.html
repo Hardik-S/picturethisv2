@@ -2,12 +2,125 @@
 <html lang="en">
 <head>
     <!-- Include Head -->
+    <base href="http://localhost:63342/picturethisv2/">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picture This! - Unlock Creativity</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        /* Shop Section Styles */
+        #shop {
+            display: flex;
+            gap: 20px;
+            margin: 0 auto; /* Center the grid horizontally */
+            justify-content: center; /* Ensures grid content is centered */
+        }
+
+        .card, .box {
+            border-radius: 15px; /* Rounded corners for the card shape */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for card effect */
+            padding: 10px; /* Padding inside the cards */
+            width: 150px; /* Consistent width for cards and boxes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Ensures content stays within the rounded borders */
+        }
+
+        .box {
+            background-size: cover;
+            background-position: center;
+            background-color: white; /* Ensures a clean background for the card */
+        }
+
+        .card {
+            height: 250px; /* Height for the card */
+            perspective: 1000px; /* Perspective for 3D flip effect */
+            opacity: 0;
+        }
+
+        .fade-in {
+            transition: opacity 1s ease;
+            opacity: 1;
+        }
+
+        .fade-out {
+            transition: opacity 15s ease;
+            opacity: 0;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+        }
+
+        .card-front {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg); /* Rotate the back side to hide it initially */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .box {
+            height: 230px; /* Height for the box */
+            margin-left: 100px;
+            margin-top: 15px;
+            background-color: lightyellow;
+        }
+
+        /* Fade-in effect when the box is hovered */
+        .box:hover ~ .card {
+            opacity: 1; /* Make the cards visible */
+        }
+
+        .add-to-cart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 80px;
+            height: 100px;
+            width: 100px;
+        }
+
+        .add-to-cart-button {
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .price-tag {
+            font-size: 1em;
+            align-self: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 <!-- Dynamic Section Loading -->
@@ -16,7 +129,34 @@
 <section id="hero"></section>
 <section id="about"></section>
 <section id="features"></section>
-<section id="shop"></section>
+
+<!-- Shop Section -->
+
+<section id="shop">
+    <div class="box" style="background-color: lightyellow;" id="box"></div>
+    <div class="add-to-cart-container">
+        <button class="add-to-cart-button" id="add-to-cart-button">Add to Cart <br><br> 24.99 CAD</button>
+    </div>
+    <div class="card" id="card-1">
+        <div class="card-inner">
+            <div class="card-front" id="card-1-front"></div>
+            <div class="card-back" id="card-1-back"></div>
+        </div>
+    </div>
+    <div class="card" id="card-2">
+        <div class="card-inner">
+            <div class="card-front" id="card-2-front"></div>
+            <div class="card-back" id="card-2-back"></div>
+        </div>
+    </div>
+    <div class="card" id="card-3">
+        <div class="card-inner">
+            <div class="card-front" id="card-3-front"></div>
+            <div class="card-back" id="card-3-back"></div>
+        </div>
+    </div>
+</section>
+
 <section id="faq"></section>
 <section id="contact"></section>
 <footer id="footer"></footer>
@@ -25,6 +165,7 @@
 <script src="js/main.js"></script>
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 <!-- Include HTML Sections Dynamically -->
 <script>
     const sections = [
@@ -33,19 +174,74 @@
         { id: 'hero', file: 'html/hero-section.html' },
         { id: 'about', file: 'html/about-section.html' },
         { id: 'features', file: 'html/features-section.html' },
-        { id: 'shop', file: 'html/shop.html' },
         { id: 'faq', file: 'html/faq-section.html' },
         { id: 'contact', file: 'html/contact-section.html' },
         { id: 'footer', file: 'html/footer.html' },
     ];
 
     sections.forEach(section => {
-        fetch(section.file)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById(section.id).innerHTML = data;
-            })
-            .catch(error => console.error('Error loading section:', section.file, error));
+        if (section.id !== 'shop') { // Exclude shop since it's directly added
+            fetch(section.file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(section.id).innerHTML = data;
+                })
+                .catch(error => console.error('Error loading section:', section.file, error));
+        }
+    });
+
+    // Shop JavaScript for Random Images
+    document.addEventListener('DOMContentLoaded', function () {
+        const getRandomImage = () => {
+            // Generate a random even number between 2 and 104
+            const randomNumber = Math.floor(Math.random() * 52) * 2 + 1;
+            const nextNumber = randomNumber + 1;
+            return [`/images/${randomNumber}.png`, `/images/${nextNumber}.png`];
+        };
+
+        // Assign random images to card tiles
+        for (let i = 1; i <= 3; i++) {
+            const front = document.getElementById(`card-${i}-front`);
+            const back = document.getElementById(`card-${i}-back`);
+            const card = document.getElementById(`card-${i}`);
+            if (front && back && card) {
+                const [frontImage, backImage] = getRandomImage();
+                front.style.backgroundImage = `url(${frontImage})`;
+                back.style.backgroundImage = `url(${backImage})`;
+
+                // Add fade-in effect when the box is hovered
+                const box = document.getElementById('box');
+                box.addEventListener('mouseenter', () => {
+                    card.classList.remove('fade-out');
+                    card.classList.add('fade-in');
+                });
+
+                // Add fade-out effect when the mouse leaves the box
+                box.addEventListener('mouseleave', () => {
+                    card.classList.remove('fade-in');
+                    card.classList.add('fade-out');
+                });
+            }
+        }
+
+        // Assign a static image to the box
+        const box = document.getElementById('box');
+        if (box) {
+            box.style.backgroundImage = 'url(/images/box-mockup2.png)';
+        }
+        // Fade-in and fade-out effects for the "Add to Cart" button
+        const addToCartButton = document.getElementById('add-to-cart-button');
+        if (box && addToCartButton) {
+            box.addEventListener('mouseenter', () => {
+                addToCartButton.classList.remove('fade-out');
+                addToCartButton.classList.add('fade-in');
+            });
+
+            box.addEventListener('mouseleave', () => {
+                addToCartButton.classList.remove('fade-in');
+                addToCartButton.classList.add('fade-out');
+            });
+        }
     });
 </script>
 </body>
