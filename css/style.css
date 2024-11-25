@@ -58,7 +58,7 @@ header .logo {
     text-align: center;
     padding: 4rem 2rem;
     color: #fff;
-    background: url('images/Logo.png') center/cover no-repeat;
+    background: url('/images/logo2.png') center/cover no-repeat;
     background-blend-mode: overlay;
 }
 
