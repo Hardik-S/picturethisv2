@@ -3,12 +3,12 @@
     text-align: center;
     padding: 4rem 2rem;
     color: #fff;
-    background-color: #001f54 !important; /* Dark blue background */
+    background: #001f54 !important; /* Dark blue background */
     background-blend-mode: overlay;
 }
 
 #hero h1 {
-    font-size: xxx-large; /* Increase font size */
+    font-size: x-large; /* Increase font size */
     line-height: 1.5; /* Improve readability */
 }
 
@@ -17,13 +17,13 @@
 }
 
 #hero p {
-    font-size: xxx-large; /* Bigger subtitle text */
+    font-size: large; /* Bigger subtitle text */
     margin-top: 1rem;
     line-height: 1.6;
 }
 
 .cta-button {
-    background-color: #ff6347;
+    background: #ff6347;
     color: white;
     padding: 1rem 2rem;
     border: none;
