@@ -57,7 +57,7 @@ header .logo {
     text-align: center;
     padding: 4rem 2rem;
     color: #fff;
-    background: url('../images/logo2.png') center/cover no-repeat;
+    background: url('https://hardik-s.github.io/picturethisv2/images/logo2.png') center/cover no-repeat;
     background-blend-mode: overlay;
 }
 
