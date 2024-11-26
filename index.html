@@ -197,7 +197,7 @@
             // Generate a random even number between 2 and 104
             const randomNumber = Math.floor(Math.random() * 52) * 2 + 1;
             const nextNumber = randomNumber + 1;
-            return [`https://hardik-s.github.io/picturethisv2/images/${randomNumber}.png`, `../images/${nextNumber}.png`];
+            return [`https://hardik-s.github.io/picturethisv2/images/${randomNumber}.png`, `https://hardik-s.github.io/picturethisv2/images/${nextNumber}.png`];
         };
 
         // Assign random images to card tiles
@@ -228,7 +228,7 @@
         // Assign a static image to the box
         const box = document.getElementById('box');
         if (box) {
-            box.style.backgroundImage = 'url(/images/box-mockup2.png)';
+            box.style.backgroundImage = 'url(https://hardik-s.github.io/picturethisv2/images/box-mockup2.png)';
         }
         // Fade-in and fade-out effects for the "Add to Cart" button
         const addToCartButton = document.getElementById('add-to-cart-button');
