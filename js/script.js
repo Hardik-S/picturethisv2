@@ -1,6 +1,13 @@
 // Set smooth scrolling behavior
 document.documentElement.style.scrollBehavior = 'smooth';
 
+const CART_STORAGE_KEY = 'pictureThisCart';
+const PICTURE_THIS_PRODUCT = {
+    id: 'picture-this-card-game',
+    name: 'Picture This! Card Game',
+    price: 24.99
+};
+
 // Load shop cards with random images
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Script loaded and running');
@@ -24,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize form validation
     initializeFormValidation();
+
+    // Render saved cart state when the cart page is open
+    renderCart();
 });
 
 // Initialize shop cards with random images
@@ -87,8 +97,8 @@ function setupAnimationTriggers() {
                 
                 // Add to cart functionality
                 addToCartButton.addEventListener('click', function() {
+                    addProductToCart(PICTURE_THIS_PRODUCT);
                     alert('Item added to cart!');
-                    // TODO: Implement proper cart functionality
                 });
             }
         } else {
@@ -97,6 +107,71 @@ function setupAnimationTriggers() {
     } catch (error) {
         console.error('Error setting up animation triggers:', error);
     }
+}
+
+function getCartItems() {
+    try {
+        return JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
+    } catch (error) {
+        console.error('Error reading cart storage:', error);
+        return [];
+    }
+}
+
+function saveCartItems(items) {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+}
+
+function addProductToCart(product) {
+    const items = getCartItems();
+    const existingItem = items.find((item) => item.id === product.id);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        items.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1
+        });
+    }
+
+    saveCartItems(items);
+}
+
+function renderCart() {
+    const cartSection = document.getElementById('cart');
+
+    if (!cartSection) {
+        return;
+    }
+
+    const items = getCartItems();
+
+    if (items.length === 0) {
+        cartSection.innerHTML = `
+            <h2>Your Cart</h2>
+            <p>Your cart is currently empty. Start shopping <a href="../index.html#shop">here</a>.</p>
+        `;
+        return;
+    }
+
+    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const itemMarkup = items.map((item) => `
+        <li>
+            <span>${item.name}</span>
+            <span>Qty ${item.quantity}</span>
+            <span>${(item.price * item.quantity).toFixed(2)} CAD</span>
+        </li>
+    `).join('');
+
+    cartSection.innerHTML = `
+        <h2>Your Cart</h2>
+        <ul class="cart-items">${itemMarkup}</ul>
+        <p class="cart-total">Total: ${total.toFixed(2)} CAD</p>
+        <a href="../index.html#shop">Continue shopping</a>
+    `;
 }
 
 // Initialize form validation
